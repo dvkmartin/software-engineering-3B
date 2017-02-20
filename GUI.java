@@ -593,7 +593,8 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        // TODO add your handling code here:
+        menuPanel.setVisible(false);
+        homePanel.setVisible(true);
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void emailBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailBtnActionPerformed
