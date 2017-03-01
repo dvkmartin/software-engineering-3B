@@ -18,7 +18,7 @@ public class Login {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            con = DriverManager.getConnection("jdbc:mysql://213.131.183.194:3306/INSEDB", "INSE", "INSE3B");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbtest", "root", "");
             st = con.createStatement();
 
         } catch (Exception ex) {
@@ -35,7 +35,7 @@ public class Login {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection conn = DriverManager.getConnection("jdbc:mysql://213.131.183.194:3306/INSEDB", "INSE", "INSE3B");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbtest", "root", "");
             if (conn != null) {
                 System.out.println("Connected");
             }
@@ -72,7 +72,7 @@ public class Login {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection conn = DriverManager.getConnection("jdbc:mysql://213.131.183.194:3306/INSEDB", "INSE", "INSE3B");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbtest", "root", "");
             if (conn != null) {
                 System.out.println("Connected");
             }
