@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calender;
+package inse_app;
 
 import java.sql.*;
 import java.util.logging.Level;
@@ -77,6 +77,36 @@ public class Mysql {
             exc.printStackTrace();
         }
         return myRs;
+    }
+
+    public boolean login(String user, String pass) {
+        try {
+            myStmt = myConn.createStatement();
+            myRs = myStmt.executeQuery("SELECT * FROM userinfo WHERE username='" + user + "' && password='" + pass + "';");
+            
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        if(myRs != null){
+                return true;
+            }else{
+                return false;
+            }
+    }
+    public void signup(String fn, String ln, String userName, String eMail, String pass){
+        try {
+            myStmt = myConn.createStatement();
+
+            myStmt.executeUpdate("INSERT INTO userinfo ( firstName, lastName, userName, email, password ) "
+                    + "VALUES ('"
+                    + fn + "','"
+                    + ln + "','"
+                    + userName + "','"
+                    + eMail + "','"
+                    + pass + "')");
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
     }
 
     public void close() {

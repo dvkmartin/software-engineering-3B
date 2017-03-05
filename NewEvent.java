@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calender;
+package inse_app;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -11,8 +11,10 @@ import java.net.URL;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class NewEvent extends javax.swing.JFrame {
 
@@ -305,9 +307,14 @@ public class NewEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtDateKeyTyped
 
     private void BtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCreateActionPerformed
+       Pattern EmailVal = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        if (EmailVal.matcher(TxtEmail.getText()).matches() == true) {
         ResultSet test = mysql.insert(TxtEmail.getText(), TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(),TxtPic.getText(), App.searchDate);
         App.FillTable(test);
         this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "The entered Email address is invalid!");
+        }
     }//GEN-LAST:event_BtnCreateActionPerformed
 
     private void BtnStvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStvActionPerformed
