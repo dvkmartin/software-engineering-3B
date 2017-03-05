@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package inse.draft.pkg1;
+package calender;
 
 import java.sql.*;
 
@@ -18,7 +18,7 @@ public class Login {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            con = DriverManager.getConnection("jdbc:mysql://213.131.183.194:3306/INSEDB", "INSE", "INSE3B");
+            con = DriverManager.getConnection("jdbc:mysql://213.131.183:3306/insedb", "INSE", "INSE3B");
             st = con.createStatement();
 
         } catch (Exception ex) {
@@ -35,7 +35,7 @@ public class Login {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection conn = DriverManager.getConnection("jdbc:mysql://213.131.183.194:3306/INSEDB", "INSE", "INSE3B");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://213.131.183:3306/insedb", "INSE", "INSE3B");
             if (conn != null) {
                 System.out.println("Connected");
             }
@@ -72,7 +72,7 @@ public class Login {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection conn = DriverManager.getConnection("jdbc:mysql://213.131.183.194:3306/INSEDB", "INSE", "INSE3B");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://213.131.183:3306/insedb", "INSE", "INSE3B");
             if (conn != null) {
                 System.out.println("Connected");
             }
