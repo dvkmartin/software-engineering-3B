@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calender;
+package inse_app;
 
-import java.io.IOException;
+import java.awt.Color;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +14,8 @@ import javax.swing.JOptionPane;
  * @author AlexN
  */
 public class GUI extends javax.swing.JFrame {
+
+    Mysql mysql = new Mysql("213.131.183.194", "insedb", "INSE", "INSE3B");
 
     /**
      * Creates new form GUI
@@ -352,6 +355,23 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(126, Short.MAX_VALUE))
         );
 
+        confirmEmailField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmEmailFieldActionPerformed(evt);
+            }
+        });
+        confirmEmailField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                confirmEmailFieldKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                confirmEmailFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                confirmEmailFieldKeyTyped(evt);
+            }
+        });
+
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -600,10 +620,26 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_exitBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        createAccountPanel.setVisible(false);
-        Login log = new Login();
-        log.Signup(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), emailField.getText(), passField.getText());
-        loginPanel.setVisible(true);
+        /*
+         createAccountPanel.setVisible(false);
+         Login log = new Login();
+         log.Signup(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), emailField.getText(), passField.getText());
+         loginPanel.setVisible(true);
+         */
+
+        Pattern EmailVal = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        if (EmailVal.matcher(emailField.getText()).matches() == true) {
+            if (confirmEmailField.getText().equals(emailField.getText())) {
+                createAccountPanel.setVisible(false);
+                mysql.signup(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), emailField.getText(), passField.getText());
+                loginPanel.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "The entered Email Addresses do not match", "Email Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "The entered Email Address is not valid", "Email Error", JOptionPane.ERROR_MESSAGE);
+
+        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -656,53 +692,91 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_requestPassBtnActionPerformed
 
     private void loginUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginUserBtnActionPerformed
-        loginPanel.setVisible(false);
-        Login log = new Login();
-        log.Login(loginUserField.getText(), loginPassField.getText());
-        if (log.getStatus() == true) {
+        /*loginPanel.setVisible(false);
+         Login log = new Login();
+         log.Login(loginUserField.getText(), loginPassField.getText());
+         if (log.getStatus() == true) {
+         JOptionPane.showMessageDialog(null, "Login Successful");
+         menuPanel.setVisible(true);
+         } else {
+         JOptionPane.showMessageDialog(null, "Login unsuccessful");
+         loginPanel.setVisible(true);
+         }*/
+        boolean result;
+        result = mysql.login(loginUserField.getText(), loginPassField.getText());
+
+        if (result == true) {
             JOptionPane.showMessageDialog(null, "Login Successful");
             menuPanel.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Login unsuccessful");
             loginPanel.setVisible(true);
         }
-        
+
+
     }//GEN-LAST:event_loginUserBtnActionPerformed
 
     private void emailSendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailSendBtnActionPerformed
-        emailPanel.setVisible(false);
-        String userEmail = emailUserField.getText();
-        String recipientEmail = emailRecipientField.getText();
-        String subjectEmail = emailSubjectField.getText();
-        String messageEmail = emailMessageField.getText();
-        Email mail = new Email();
-        mail.Email(recipientEmail, subjectEmail, messageEmail, userEmail);
-        JOptionPane.showMessageDialog(null, "Message sent!");
-        menuPanel.setVisible(true);
+
+        Pattern EmailVal = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        if (EmailVal.matcher(emailUserField.getText()).matches() == true && EmailVal.matcher(emailRecipientField.getText()).matches() == true) {
+            emailPanel.setVisible(false);
+            Email mail = new Email();
+            mail.Email(emailRecipientField.getText(),
+                    emailSubjectField.getText(),
+                    emailMessageField.getText(),
+                    emailUserField.getText());
+            JOptionPane.showMessageDialog(this, "Message sent!");
+            menuPanel.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "One or more of the entered email addresses are not valid", "Email error", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_emailSendBtnActionPerformed
 
     private void calendarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calendarBtnActionPerformed
-/*
-        try {
+        /*
+         try {
             
-            menuPanel.setVisible(false);
-            calendarPanel.setVisible(true);
-            calendarEditorPane.setVisible(true);
-            calendarEditorPane.setPage("https://calendar.google.com/calendar/htmlembed?src=6lfkkeb6t2cejuk8ii3od4770k%40group.calendar.google.com&ctz=Europe/London");
-            calendarEditorPane.setContentType("text/html");
-            calendarEditorPane.setEditable(false);
+         menuPanel.setVisible(false);
+         calendarPanel.setVisible(true);
+         calendarEditorPane.setVisible(true);
+         calendarEditorPane.setPage("https://calendar.google.com/calendar/htmlembed?src=6lfkkeb6t2cejuk8ii3od4770k%40group.calendar.google.com&ctz=Europe/London");
+         calendarEditorPane.setContentType("text/html");
+         calendarEditorPane.setEditable(false);
             
-        } catch(IOException ex) {
+         } catch(IOException ex) {
             
-        }*/
-         new App().setVisible(true);
-         this.dispose();
+         }*/
+        new App().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_calendarBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       menuPanel.setVisible(true);
-       homePanel.setVisible(false);
+        menuPanel.setVisible(true);
+        homePanel.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void confirmEmailFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmEmailFieldKeyTyped
+
+    }//GEN-LAST:event_confirmEmailFieldKeyTyped
+
+    private void confirmEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEmailFieldActionPerformed
+
+    }//GEN-LAST:event_confirmEmailFieldActionPerformed
+
+    private void confirmEmailFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmEmailFieldKeyPressed
+
+    }//GEN-LAST:event_confirmEmailFieldKeyPressed
+
+    private void confirmEmailFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmEmailFieldKeyReleased
+        if (confirmEmailField.getText().equals(emailField.getText())) {
+            confirmEmailField.setBackground(Color.green);
+        } else {
+            confirmEmailField.setBackground(Color.red);
+        }
+    }//GEN-LAST:event_confirmEmailFieldKeyReleased
 
     /**
      * @param args the command line arguments
