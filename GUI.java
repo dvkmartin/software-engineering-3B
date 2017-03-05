@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package inse.draft.pkg1;
+package calender;
 
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -37,6 +37,7 @@ public class GUI extends javax.swing.JFrame {
         exitBtn = new javax.swing.JButton();
         createAccountBtn = new javax.swing.JButton();
         loginBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         menuPanel = new javax.swing.JPanel();
         menuPanel.setVisible(false);
         bookingBtn = new javax.swing.JButton();
@@ -129,6 +130,13 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Login Bypass");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
         homePanelLayout.setHorizontalGroup(
@@ -146,6 +154,10 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(165, 165, 165)
                 .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(54, 54, 54))
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +166,9 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(createAccountBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addGap(49, 49, 49)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70))
         );
@@ -668,6 +682,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_emailSendBtnActionPerformed
 
     private void calendarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calendarBtnActionPerformed
+/*
         try {
             
             menuPanel.setVisible(false);
@@ -679,8 +694,15 @@ public class GUI extends javax.swing.JFrame {
             
         } catch(IOException ex) {
             
-        }
+        }*/
+         new App().setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_calendarBtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       menuPanel.setVisible(true);
+       homePanel.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -747,6 +769,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton forgotPassBtn;
     private javax.swing.JPanel forgotPassPanel;
     private javax.swing.JPanel homePanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
