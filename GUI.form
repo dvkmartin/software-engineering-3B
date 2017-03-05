@@ -610,10 +610,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="confirmEmailField">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmEmailFieldActionPerformed"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="confirmEmailFieldKeyPressed"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="confirmEmailFieldKeyReleased"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="confirmEmailFieldKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="passField">

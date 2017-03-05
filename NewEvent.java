@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 public class NewEvent extends javax.swing.JFrame {
 
     Mysql mysql = new Mysql("213.131.183.194", "insedb", "INSE", "INSE3B");
+    String pictureRef = null;
 
     /**
      * Creates new form NewEvent
@@ -57,8 +58,6 @@ public class NewEvent extends javax.swing.JFrame {
         LblImg = new javax.swing.JLabel();
         BtnMap = new javax.swing.JButton();
         BtnStv = new javax.swing.JButton();
-        TxtPic = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create New Calender Event");
@@ -148,11 +147,6 @@ public class NewEvent extends javax.swing.JFrame {
             }
         });
 
-        TxtPic.setEnabled(false);
-        TxtPic.setMaximumSize(new java.awt.Dimension(140, 2147483647));
-
-        jLabel11.setText("Picture:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,11 +179,9 @@ public class NewEvent extends javax.swing.JFrame {
                                 .addGap(11, 11, 11)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel6)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel11))
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(TxtPic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(TxtDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                                     .addComponent(TxtLoc))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -200,21 +192,24 @@ public class NewEvent extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BtnCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(BtnStv, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(LblImg)
-                                        .addGap(235, 235, 235)
-                                        .addComponent(BtnMap)))))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(TxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel9))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(154, 154, 154)
+                                        .addComponent(BtnMap)
+                                        .addGap(133, 133, 133)
+                                        .addComponent(BtnStv)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(LblImg)
+                .addGap(117, 117, 117))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,20 +242,15 @@ public class NewEvent extends javax.swing.JFrame {
                     .addComponent(TxtLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtPic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addGap(5, 5, 5)
+                .addGap(28, 28, 28)
                 .addComponent(BtnCreate)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnStv)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnMap))
-                    .addComponent(LblImg))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnStv)
+                    .addComponent(BtnMap))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LblImg)
+                .addContainerGap(202, Short.MAX_VALUE))
         );
 
         pack();
@@ -307,13 +297,22 @@ public class NewEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtDateKeyTyped
 
     private void BtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCreateActionPerformed
-       Pattern EmailVal = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Pattern TimeVal = Pattern.compile("^(([0-9])|([0-1][0-9])|([2][0-3])):(([0-9])|([0-5][0-9]))$");
+        Pattern EmailVal = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         if (EmailVal.matcher(TxtEmail.getText()).matches() == true) {
-        ResultSet test = mysql.insert(TxtEmail.getText(), TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(),TxtPic.getText(), App.searchDate);
-        App.FillTable(test);
-        this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(this, "The entered Email address is invalid!");
+            if (pictureRef != null) {
+                if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
+                    ResultSet eventUpdate = mysql.insert(TxtEmail.getText(), TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(), pictureRef, App.searchDate);
+                    App.FillTable(eventUpdate);
+                    this.dispose();
+                } else {
+                        JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Please Choose a picture Type: Google StreetView or Google Maps", "Please Select a Picture Type", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "The entered Email address is invalid!", "Email Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnCreateActionPerformed
 
@@ -326,23 +325,23 @@ public class NewEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnMapActionPerformed
 
     private void setPic(int imgType, String postcode) {
-        URL test = null;
+        URL picURL = null;
         try {
             switch (imgType) {
                 case 1:
                     //static map
-                    test = new URL("https://maps.googleapis.com/maps/api/staticmap?center=" + postcode + "&zoom=18&size=200x200&markers=" + postcode + "&key=AIzaSyClUql2PCm-KIxo2R6oHvsiSAGQy2H32ys");
-                    TxtPic.setText("https://maps.googleapis.com/maps/api/staticmap?center=" + postcode + "&zoom=18&size=200x200&markers=" + postcode + "&key=AIzaSyClUql2PCm-KIxo2R6oHvsiSAGQy2H32ys");
+                    picURL = new URL("https://maps.googleapis.com/maps/api/staticmap?center=" + postcode + "&zoom=18&size=200x200&markers=" + postcode + "&key=AIzaSyClUql2PCm-KIxo2R6oHvsiSAGQy2H32ys");
+                    pictureRef = ("https://maps.googleapis.com/maps/api/staticmap?center=" + postcode + "&zoom=18&size=200x200&markers=" + postcode + "&key=AIzaSyClUql2PCm-KIxo2R6oHvsiSAGQy2H32ys");
                     break;
                 case 2:
                     //streetview
-                    test = new URL("https://maps.googleapis.com/maps/api/streetview?size=200x200&location=" + postcode + "&pitch=0&fov=120&key=AIzaSyClUql2PCm-KIxo2R6oHvsiSAGQy2H32ys");
-                    TxtPic.setText("https://maps.googleapis.com/maps/api/streetview?size=200x200&location=" + postcode + "&pitch=0&fov=120&key=AIzaSyClUql2PCm-KIxo2R6oHvsiSAGQy2H32ys");
+                    picURL = new URL("https://maps.googleapis.com/maps/api/streetview?size=200x200&location=" + postcode + "&pitch=0&fov=120&key=AIzaSyClUql2PCm-KIxo2R6oHvsiSAGQy2H32ys");
+                    pictureRef = ("https://maps.googleapis.com/maps/api/streetview?size=200x200&location=" + postcode + "&pitch=0&fov=120&key=AIzaSyClUql2PCm-KIxo2R6oHvsiSAGQy2H32ys");
                     break;
 
             }
 
-            LblImg.setIcon(new ImageIcon(ImageIO.read(test)));
+            LblImg.setIcon(new ImageIcon(ImageIO.read(picURL)));
         } catch (MalformedURLException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -395,11 +394,9 @@ public class NewEvent extends javax.swing.JFrame {
     private javax.swing.JTextField TxtEmail;
     private javax.swing.JTextField TxtEnd;
     private javax.swing.JTextField TxtLoc;
-    private javax.swing.JTextField TxtPic;
     private javax.swing.JTextField TxtStart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

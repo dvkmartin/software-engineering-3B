@@ -66,7 +66,27 @@ public class Mysql {
             exc.printStackTrace();
         }
         return myRs;
+    }
 
+    public ResultSet searchByID(String id) {
+        try {
+            myStmt = myConn.createStatement();
+            myRs = myStmt.executeQuery("SELECT * FROM Calendar WHERE ID =" + id + ";");
+
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return myRs;
+    }
+
+    public void deleteByID(String id) {
+        try {
+            myStmt = myConn.createStatement();
+            myStmt.executeUpdate("DELETE FROM Calendar WHERE ID =" + id + ";");
+
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
     }
 
     public ResultSet query(String qry) {
@@ -83,17 +103,18 @@ public class Mysql {
         try {
             myStmt = myConn.createStatement();
             myRs = myStmt.executeQuery("SELECT * FROM userinfo WHERE username='" + user + "' && password='" + pass + "';");
-            
+
         } catch (Exception exc) {
             exc.printStackTrace();
         }
-        if(myRs != null){
-                return true;
-            }else{
-                return false;
-            }
+        if (myRs != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    public void signup(String fn, String ln, String userName, String eMail, String pass){
+
+    public void signup(String fn, String ln, String userName, String eMail, String pass) {
         try {
             myStmt = myConn.createStatement();
 

@@ -355,20 +355,9 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(126, Short.MAX_VALUE))
         );
 
-        confirmEmailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmEmailFieldActionPerformed(evt);
-            }
-        });
         confirmEmailField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                confirmEmailFieldKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 confirmEmailFieldKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                confirmEmailFieldKeyTyped(evt);
             }
         });
 
@@ -757,18 +746,6 @@ public class GUI extends javax.swing.JFrame {
         menuPanel.setVisible(true);
         homePanel.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void confirmEmailFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmEmailFieldKeyTyped
-
-    }//GEN-LAST:event_confirmEmailFieldKeyTyped
-
-    private void confirmEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEmailFieldActionPerformed
-
-    }//GEN-LAST:event_confirmEmailFieldActionPerformed
-
-    private void confirmEmailFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmEmailFieldKeyPressed
-
-    }//GEN-LAST:event_confirmEmailFieldKeyPressed
 
     private void confirmEmailFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmEmailFieldKeyReleased
         if (confirmEmailField.getText().equals(emailField.getText())) {
