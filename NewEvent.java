@@ -298,13 +298,25 @@ public class NewEvent extends javax.swing.JFrame {
 
     private void BtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCreateActionPerformed
         Pattern TimeVal = Pattern.compile("^(([0-9])|([0-1][0-9])|([2][0-3])):(([0-9])|([0-5][0-9]))$");
+        String startTime = "";
+        String endTime = "";
+        for (String digits: TxtStart.getText().split(":")) {
+             startTime += digits;
+        }
+        for(String digits: TxtEnd.getText().split(":")){
+             endTime += digits;
+        } 
         Pattern EmailVal = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         if (EmailVal.matcher(TxtEmail.getText()).matches() == true) {
             if (pictureRef != null) {
                 if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
-                    ResultSet eventUpdate = mysql.insert(TxtEmail.getText(), TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(), pictureRef, App.searchDate);
-                    App.FillTable(eventUpdate);
-                    this.dispose();
+                    if(Integer.parseInt(startTime) < Integer.parseInt(endTime)){
+                        ResultSet eventUpdate = mysql.insert(TxtEmail.getText(), TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(), pictureRef, App.searchDate);
+                        App.FillTable(eventUpdate);
+                        this.dispose();
+                    } else {
+                            JOptionPane.showMessageDialog(this, "The end time must be greater than the start time", "Time Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
                         JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
                 }
