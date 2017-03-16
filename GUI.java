@@ -86,12 +86,13 @@ public class GUI extends javax.swing.JFrame {
         emailUserField = new javax.swing.JTextField();
         emailRecipientField = new javax.swing.JTextField();
         emailSubjectField = new javax.swing.JTextField();
-        emailMessageField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         emailSendBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        emailMessageField = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -474,6 +475,10 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        emailMessageField.setColumns(20);
+        emailMessageField.setRows(5);
+        jScrollPane1.setViewportView(emailMessageField);
+
         javax.swing.GroupLayout emailPanelLayout = new javax.swing.GroupLayout(emailPanel);
         emailPanel.setLayout(emailPanelLayout);
         emailPanelLayout.setHorizontalGroup(
@@ -489,11 +494,11 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
-                        .addGroup(emailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(emailUserField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(emailRecipientField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(emailSubjectField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(emailMessageField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(emailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(emailUserField, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                            .addComponent(emailRecipientField, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                            .addComponent(emailSubjectField, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))))
                 .addGap(25, 25, 25))
         );
         emailPanelLayout.setVerticalGroup(
@@ -513,9 +518,9 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(emailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(emailMessageField, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addComponent(emailSendBtn)
                 .addContainerGap())
         );
@@ -808,7 +813,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton emailBtn;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JTextField emailMessageField;
+    private javax.swing.JTextArea emailMessageField;
     private javax.swing.JPanel emailPanel;
     private javax.swing.JTextField emailRecipientField;
     private javax.swing.JButton emailSendBtn;
@@ -825,6 +830,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lNameLabel;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JButton loginBtn;
