@@ -651,6 +651,7 @@ public class GUI extends javax.swing.JFrame {
         createAccountBtn.setVisible(false);
         loginBtn.setVisible(false);
         exitBtn.setVisible(false);
+        jButton1.setVisible(false);
         createAccountPanel.setVisible(true);
     }//GEN-LAST:event_createAccountBtnActionPerformed
 
@@ -667,6 +668,7 @@ public class GUI extends javax.swing.JFrame {
         createAccountBtn.setVisible(true);
         loginBtn.setVisible(true);
         exitBtn.setVisible(true);
+        jButton1.setVisible(true);
         homePanel.setVisible(true);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
