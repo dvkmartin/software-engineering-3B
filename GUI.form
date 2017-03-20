@@ -23,7 +23,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="436" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="forgotPassPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -41,32 +45,25 @@
           <Group type="103" rootIndex="3" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="forgotPassPanel" min="-2" max="-2" attributes="0"/>
+                  <Component id="loginPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
           <Group type="103" rootIndex="4" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="loginPanel" min="-2" max="-2" attributes="0"/>
+                  <Component id="createAccountPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
           <Group type="103" rootIndex="5" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="createAccountPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-          <Group type="103" rootIndex="6" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Component id="homePanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
-          <Group type="103" rootIndex="7" groupAlignment="0" attributes="0">
+          <Group type="103" rootIndex="6" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Component id="calendarPanel" min="-2" max="-2" attributes="0"/>
@@ -77,7 +74,11 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="468" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="forgotPassPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -95,32 +96,25 @@
           <Group type="103" rootIndex="3" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="forgotPassPanel" min="-2" max="-2" attributes="0"/>
+                  <Component id="loginPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
           <Group type="103" rootIndex="4" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="loginPanel" min="-2" max="-2" attributes="0"/>
+                  <Component id="createAccountPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
           <Group type="103" rootIndex="5" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="createAccountPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-          <Group type="103" rootIndex="6" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Component id="homePanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
-          <Group type="103" rootIndex="7" groupAlignment="0" attributes="0">
+          <Group type="103" rootIndex="6" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Component id="calendarPanel" min="-2" max="-2" attributes="0"/>
@@ -455,8 +449,8 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="loginPassField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="loginPassLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="loginPassField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -472,8 +466,6 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JTextField" name="loginUserField">
-        </Component>
-        <Component class="javax.swing.JTextField" name="loginPassField">
         </Component>
         <Component class="javax.swing.JLabel" name="loginUserLabel">
           <Properties>
@@ -509,6 +501,8 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="forgotPassBtnActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JPasswordField" name="loginPassField">
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="createAccountPanel">
@@ -537,15 +531,15 @@
                       <Component id="lNameLabel" min="-2" max="-2" attributes="0"/>
                       <Component id="fNameLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="firstNameField" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="lastNameField" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="usernameField" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="emailField" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="confirmEmailField" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="passField" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="confirmPassField" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="firstNameField" pref="200" max="32767" attributes="0"/>
+                      <Component id="lastNameField" pref="200" max="32767" attributes="0"/>
+                      <Component id="usernameField" pref="200" max="32767" attributes="0"/>
+                      <Component id="emailField" pref="200" max="32767" attributes="0"/>
+                      <Component id="confirmEmailField" pref="200" max="32767" attributes="0"/>
+                      <Component id="passField" max="32767" attributes="0"/>
+                      <Component id="confirmPassField" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
               </Group>
@@ -581,13 +575,13 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="passField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="passLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="passField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="confirmPassField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cnfmPassLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="confirmPassField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -612,10 +606,6 @@
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="confirmEmailFieldKeyReleased"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="passField">
-        </Component>
-        <Component class="javax.swing.JTextField" name="confirmPassField">
         </Component>
         <Component class="javax.swing.JButton" name="cancelBtn">
           <Properties>
@@ -668,6 +658,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Confirm Password:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="passField">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passFieldActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="confirmPassField">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmPassFieldActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
