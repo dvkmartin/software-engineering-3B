@@ -11,8 +11,11 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author lukes_000
+ * @author UP735175
+ * @author UP762633
+ * @author UP775061
+ * @author UP759167
+ * @author UP784356
  */
 public class CalEventInfo extends javax.swing.JFrame {
 
@@ -30,6 +33,10 @@ public class CalEventInfo extends javax.swing.JFrame {
         populateGUI(id);
     }
 
+    /**
+     * Get Event info From ID
+     * @param id Event ID 
+     */
     private void populateGUI(String id) {
         try {
             ResultSet myRs = mysql.searchByID(id);
@@ -145,6 +152,7 @@ public class CalEventInfo extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed
@@ -152,7 +160,6 @@ public class CalEventInfo extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BtnDeleteActionPerformed
 
-  //----------backup code here-----------------------------------------------------------------------------------
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnDelete;
