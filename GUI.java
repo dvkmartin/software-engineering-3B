@@ -6,6 +6,7 @@
 package inse_app;
 
 import java.awt.Color;
+import java.sql.ResultSet;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
 public class GUI extends javax.swing.JFrame {
 
     Mysql mysql = new Mysql("213.131.183.194", "insedb", "INSE", "INSE3B");
+    String UserEmail = "test@test.com";
 
     /**
      * Creates new form GUI
@@ -33,14 +35,10 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        calendarPanel = new javax.swing.JPanel();
-        calendarScrollPane = new javax.swing.JScrollPane();
-        calendarEditorPane = new javax.swing.JEditorPane();
         homePanel = new javax.swing.JPanel();
         exitBtn = new javax.swing.JButton();
         createAccountBtn = new javax.swing.JButton();
         loginBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         menuPanel = new javax.swing.JPanel();
         menuPanel.setVisible(false);
         bookingBtn = new javax.swing.JButton();
@@ -96,21 +94,6 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        calendarPanel.setVisible(false);
-
-        calendarScrollPane.setViewportView(calendarEditorPane);
-
-        javax.swing.GroupLayout calendarPanelLayout = new javax.swing.GroupLayout(calendarPanel);
-        calendarPanel.setLayout(calendarPanelLayout);
-        calendarPanelLayout.setHorizontalGroup(
-            calendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(calendarScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
-        );
-        calendarPanelLayout.setVerticalGroup(
-            calendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(calendarScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-        );
-
         homePanel.setMinimumSize(new java.awt.Dimension(436, 468));
 
         exitBtn.setText("Exit");
@@ -134,13 +117,6 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Login Bypass");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
         homePanelLayout.setHorizontalGroup(
@@ -158,10 +134,6 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(165, 165, 165)
                 .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(54, 54, 54))
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,14 +142,17 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(createAccountBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70))
         );
 
         bookingBtn.setText("Booking");
+        bookingBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookingBtnActionPerformed(evt);
+            }
+        });
 
         calendarBtn.setText("Calendar");
         calendarBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -570,11 +545,6 @@ public class GUI extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(calendarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -606,11 +576,6 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(calendarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -659,7 +624,6 @@ public class GUI extends javax.swing.JFrame {
         createAccountBtn.setVisible(false);
         loginBtn.setVisible(false);
         exitBtn.setVisible(false);
-        jButton1.setVisible(false);
         createAccountPanel.setVisible(true);
     }//GEN-LAST:event_createAccountBtnActionPerformed
 
@@ -676,7 +640,6 @@ public class GUI extends javax.swing.JFrame {
         createAccountBtn.setVisible(true);
         loginBtn.setVisible(true);
         exitBtn.setVisible(true);
-        jButton1.setVisible(true);
         homePanel.setVisible(true);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
@@ -696,21 +659,11 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_requestPassBtnActionPerformed
 
     private void loginUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginUserBtnActionPerformed
-        /*loginPanel.setVisible(false);
-         Login log = new Login();
-         log.Login(loginUserField.getText(), loginPassField.getText());
-         if (log.getStatus() == true) {
-         JOptionPane.showMessageDialog(null, "Login Successful");
-         menuPanel.setVisible(true);
-         } else {
-         JOptionPane.showMessageDialog(null, "Login unsuccessful");
-         loginPanel.setVisible(true);
-         }*/
         boolean result;
         result = mysql.login(loginUserField.getText(), loginPassField.getText());
-
         if (result == true) {
             JOptionPane.showMessageDialog(null, "Login Successful");
+            getEmail();
             menuPanel.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Login unsuccessful");
@@ -719,6 +672,22 @@ public class GUI extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_loginUserBtnActionPerformed
+
+    private void getEmail() {
+        ResultSet rs = mysql.searchByUserName(loginUserField.getText());
+        try {
+            while (rs.next()) {
+                String FName = rs.getString(1);
+                String LName = rs.getString(2);
+                String UName = rs.getString(3);
+                String EMail = rs.getString(4);
+                String Pass = rs.getString(5);
+                UserEmail = EMail;
+            }
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
 
     private void emailSendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailSendBtnActionPerformed
 
@@ -753,14 +722,9 @@ public class GUI extends javax.swing.JFrame {
          } catch(IOException ex) {
             
          }*/
-        new App().setVisible(true);
+        new App(UserEmail).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_calendarBtnActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        menuPanel.setVisible(true);
-        homePanel.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void confirmEmailFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmEmailFieldKeyReleased
         if (confirmEmailField.getText().equals(emailField.getText())) {
@@ -777,6 +741,10 @@ public class GUI extends javax.swing.JFrame {
     private void confirmPassFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmPassFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_confirmPassFieldActionPerformed
+
+    private void bookingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -816,9 +784,6 @@ public class GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bookingBtn;
     private javax.swing.JButton calendarBtn;
-    private javax.swing.JEditorPane calendarEditorPane;
-    private javax.swing.JPanel calendarPanel;
-    private javax.swing.JScrollPane calendarScrollPane;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JLabel cnfmEmailLabel;
     private javax.swing.JLabel cnfmPassLabel;
@@ -843,7 +808,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton forgotPassBtn;
     private javax.swing.JPanel forgotPassPanel;
     private javax.swing.JPanel homePanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

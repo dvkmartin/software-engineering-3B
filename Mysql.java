@@ -68,6 +68,28 @@ public class Mysql {
         return myRs;
     }
 
+    public ResultSet searchByEmail(String email) {
+        try {
+            myStmt = myConn.createStatement();
+            myRs = myStmt.executeQuery("SELECT * FROM Calendar WHERE Email ='" + email + "';");
+
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return myRs;
+    }
+    
+    public ResultSet searchByEmailDate(String email,String date) {
+        try {
+            myStmt = myConn.createStatement();
+            myRs = myStmt.executeQuery("SELECT * FROM Calendar WHERE Email ='" + email + "'AND EventDate ='"+date+"';");
+
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return myRs;
+    }
+
     public ResultSet searchByID(String id) {
         try {
             myStmt = myConn.createStatement();
@@ -112,6 +134,28 @@ public class Mysql {
         } else {
             return false;
         }
+    }
+    
+     public ResultSet searchByUserName(String user) {
+        try {
+            myStmt = myConn.createStatement();
+            myRs = myStmt.executeQuery("SELECT * FROM userinfo WHERE userName ='" + user + "';");
+
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return myRs;
+    }
+
+    public ResultSet getUsers() {
+        try {
+            myStmt = myConn.createStatement();
+            myRs = myStmt.executeQuery("SELECT userName,email FROM userinfo ;");
+
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return myRs;
     }
 
     public void signup(String fn, String ln, String userName, String eMail, String pass) {

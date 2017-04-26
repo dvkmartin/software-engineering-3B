@@ -6,27 +6,39 @@
 package inse_app;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class App extends javax.swing.JFrame implements ListSelectionListener {
+/**
+ *
+ * @author Luke
+ */
+public class Booking extends javax.swing.JFrame implements ListSelectionListener {
 
     Mysql mysql = new Mysql("213.131.183.194", "insedb", "INSE", "INSE3B");
-    static String searchDate = "20170101";
-    String testing = "";
+    String searchDate = "20170101";
     String UserEmail = "";
+    ArrayList<String> users = new ArrayList<>();
+    ArrayList<String> emails = new ArrayList<>();
 
     /**
-     * Creates new form App
+     * Creates new form Booking
+     *
+     * @param email allows for passing of user email throughout
      */
-    public App(String email) {
-        UserEmail =email;
+    public Booking(String email) {
+        UserEmail = email;
         initComponents();
         TableData.getSelectionModel().addListSelectionListener(this);
         FillYear();
-
+        fetchUsers();
+        FillPersons();
+        searchDB();
     }
 
     /**
@@ -42,24 +54,14 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
         CmbDay = new javax.swing.JComboBox();
         CmbMnth = new javax.swing.JComboBox();
         CmbYr = new javax.swing.JComboBox();
-        BtnNewEvnt = new javax.swing.JButton();
+        BtnBook = new javax.swing.JButton();
         BtnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableData = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        CmbPerson = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-                formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-            }
-        });
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Date:");
 
@@ -95,10 +97,10 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
             }
         });
 
-        BtnNewEvnt.setText("Create New Event");
-        BtnNewEvnt.addActionListener(new java.awt.event.ActionListener() {
+        BtnBook.setText("Book Meeting");
+        BtnBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnNewEvntActionPerformed(evt);
+                BtnBookActionPerformed(evt);
             }
         });
 
@@ -114,11 +116,11 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
 
             },
             new String [] {
-                "ID", "Email", "Date", "Start Time", "End Time", "Description", "Location"
+                "Date", "Start Time", "End Time", "Description"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -127,10 +129,18 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
         });
         TableData.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(TableData);
-        if (TableData.getColumnModel().getColumnCount() > 0) {
-            TableData.getColumnModel().getColumn(0).setResizable(false);
-            TableData.getColumnModel().getColumn(0).setPreferredWidth(20);
-        }
+
+        jLabel2.setText("Person:");
+
+        CmbPerson.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                CmbPersonPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,21 +148,29 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(CmbDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CmbMnth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CmbYr, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CmbPerson, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(CmbDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CmbMnth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CmbYr, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnNewEvnt))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(BtnBook)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,11 +181,15 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
                     .addComponent(CmbDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CmbMnth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CmbYr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnNewEvnt)
+                    .addComponent(BtnBook)
                     .addComponent(BtnSearch))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(CmbPerson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -175,40 +197,31 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
 
     private void CmbDayPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_CmbDayPopupMenuWillBecomeInvisible
         getSearchYr();
-        String date = getSearchYr();
-        ResultSet test = mysql.search(date);
-        FillTable(test);
+        searchDB();
     }//GEN-LAST:event_CmbDayPopupMenuWillBecomeInvisible
 
     private void CmbMnthPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_CmbMnthPopupMenuWillBecomeInvisible
         getSearchYr();
-        String date = getSearchYr();
-        ResultSet test = mysql.search(date);
-        FillTable(test);
+        searchDB();
     }//GEN-LAST:event_CmbMnthPopupMenuWillBecomeInvisible
 
     private void CmbYrPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_CmbYrPopupMenuWillBecomeInvisible
         getSearchYr();
-        String date = getSearchYr();
-        ResultSet test = mysql.search(date);
-        FillTable(test);
+        searchDB();
     }//GEN-LAST:event_CmbYrPopupMenuWillBecomeInvisible
 
-    private void BtnNewEvntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNewEvntActionPerformed
+    private void BtnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookActionPerformed
         new NewEvent().setVisible(true);
-    }//GEN-LAST:event_BtnNewEvntActionPerformed
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        new GUI().setVisible(true);
-    }//GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_BtnBookActionPerformed
 
     private void BtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSearchActionPerformed
         searchDB();
     }//GEN-LAST:event_BtnSearchActionPerformed
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+    private void CmbPersonPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_CmbPersonPopupMenuWillBecomeInvisible
+        getSearchYr();
         searchDB();
-    }//GEN-LAST:event_formWindowGainedFocus
+    }//GEN-LAST:event_CmbPersonPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -227,20 +240,20 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Booking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Booking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Booking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Booking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new App("Test@test.com").setVisible(true);
+                new Booking("test@test.com").setVisible(true);
             }
         });
     }
@@ -249,14 +262,32 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
         if (le.getValueIsAdjusting() == false) {
             Object res = TableData.getModel().getValueAt(TableData.getSelectedRow(), 0);
             System.out.println("Cell info :" + res);
-            new CalEventInfo((String) res).setVisible(true);
+
+        }
+    }
+
+    public void fetchUsers() {
+        try {
+            ResultSet rs = mysql.getUsers();
+            while (rs.next()) {
+                users.add(rs.getString(1));
+                emails.add(rs.getString(2));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void searchDB() {
-        String date = getSearchYr();
-        ResultSet results = mysql.search(date);
+        String email = getEmail();
+        ResultSet results = mysql.searchByEmailDate(email,searchDate);
         FillTable(results);
+    }
+
+    public String getEmail() {
+        int user = CmbPerson.getSelectedIndex();
+        String email = emails.get(user);
+        return email;
     }
 
     public String getSearchYr() {
@@ -345,7 +376,12 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
         CmbMnth.setSelectedIndex(today.get(Calendar.MONTH));
         CmbYr.setSelectedItem(Integer.toString(today.get(Calendar.YEAR)));
         getSearchYr();
+    }
 
+    private void FillPersons() {
+        for (String usr : users) {
+            CmbPerson.addItem(usr);
+        }
     }
 
     public static void FillTable(ResultSet rs) {
@@ -356,15 +392,12 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
         model.setNumRows(0);
         try {
             while (rs.next()) {
-                String ID = rs.getString(1);
-                String Email = rs.getString(2);
                 String date = rs.getString(3);
                 String start = rs.getString(4);
                 String end = rs.getString(5);
                 String desc = rs.getString(6);
-                String loc = rs.getString(7);
 
-                Object[] content = {ID, Email, date, start, end, desc, loc};
+                Object[] content = {date,start, end, desc};
 
                 model.addRow(content);
             }
@@ -373,15 +406,17 @@ public class App extends javax.swing.JFrame implements ListSelectionListener {
         }
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnNewEvnt;
+    private javax.swing.JButton BtnBook;
     private javax.swing.JButton BtnSearch;
     private javax.swing.JComboBox CmbDay;
     private javax.swing.JComboBox CmbMnth;
+    private javax.swing.JComboBox CmbPerson;
     private javax.swing.JComboBox CmbYr;
     private static javax.swing.JTable TableData;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
 }
