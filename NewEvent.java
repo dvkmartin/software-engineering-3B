@@ -5,6 +5,13 @@
  */
 package inse_app;
 
+/**
+ * @author UP735175
+ * @author UP762633
+ * @author UP775061
+ * @author UP759167
+ * @author UP784356
+ */
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,13 +27,14 @@ public class NewEvent extends javax.swing.JFrame {
 
     Mysql mysql = new Mysql("213.131.183.194", "insedb", "INSE", "INSE3B");
     String pictureRef = null;
+    String UserEmail = "";
 
     /**
      * Creates new form NewEvent
      */
-    public NewEvent() {
+    public NewEvent(String email) {
         initComponents();
-
+        UserEmail = email;
     }
 
     /**
@@ -38,14 +46,12 @@ public class NewEvent extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         TxtDesc = new javax.swing.JTextField();
-        TxtEmail = new javax.swing.JTextField();
         TxtDate = new javax.swing.JTextField();
         TxtStart = new javax.swing.JTextField();
         TxtEnd = new javax.swing.JTextField();
@@ -68,8 +74,6 @@ public class NewEvent extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Email:");
-
         jLabel2.setText("Event Date:");
 
         jLabel3.setText("Start Time:");
@@ -83,12 +87,6 @@ public class NewEvent extends javax.swing.JFrame {
         TxtDesc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TxtDescKeyTyped(evt);
-            }
-        });
-
-        TxtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TxtEmailKeyTyped(evt);
             }
         });
 
@@ -157,24 +155,17 @@ public class NewEvent extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(TxtStart, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                                    .addComponent(TxtEnd))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(25, 25, 25)
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel4))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(TxtStart, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                                            .addComponent(TxtEnd))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel8)))))
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(11, 11, 11)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -214,11 +205,7 @@ public class NewEvent extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(TxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,10 +237,11 @@ public class NewEvent extends javax.swing.JFrame {
                     .addComponent(BtnMap))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LblImg)
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap(205, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -271,12 +259,6 @@ public class NewEvent extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_TxtLocKeyTyped
-
-    private void TxtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtEmailKeyTyped
-        if (TxtEmail.getText().length() >= 100) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_TxtEmailKeyTyped
 
     private void TxtEndKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtEndKeyTyped
         if (TxtEnd.getText().length() >= 5) {
@@ -300,32 +282,29 @@ public class NewEvent extends javax.swing.JFrame {
         Pattern TimeVal = Pattern.compile("^(([0-9])|([0-1][0-9])|([2][0-3])):(([0-9])|([0-5][0-9]))$");
         String startTime = "";
         String endTime = "";
-        for (String digits: TxtStart.getText().split(":")) {
-             startTime += digits;
+        for (String digits : TxtStart.getText().split(":")) {
+            startTime += digits;
         }
-        for(String digits: TxtEnd.getText().split(":")){
-             endTime += digits;
-        } 
-        Pattern EmailVal = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-        if (EmailVal.matcher(TxtEmail.getText()).matches() == true) {
-            if (pictureRef != null) {
-                if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
-                    if(Integer.parseInt(startTime) < Integer.parseInt(endTime)){
-                        ResultSet eventUpdate = mysql.insert(TxtEmail.getText(), TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(), pictureRef, App.searchDate);
-                        App.FillTable(eventUpdate);
-                        this.dispose();
-                    } else {
-                            JOptionPane.showMessageDialog(this, "The end time must be greater than the start time", "Time Error", JOptionPane.ERROR_MESSAGE);
-                    }
+        for (String digits : TxtEnd.getText().split(":")) {
+            endTime += digits;
+        }
+
+        if (pictureRef != null) {
+            if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
+                if (Integer.parseInt(startTime) < Integer.parseInt(endTime)) {
+                    ResultSet eventUpdate = mysql.insert(UserEmail, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(), pictureRef, CalendarForm.searchDate);
+                    CalendarForm.FillTable(eventUpdate);
+                    this.dispose();
                 } else {
-                        JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The end time must be greater than the start time", "Time Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Please Choose a picture Type: Google StreetView or Google Maps", "Please Select a Picture Type", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "The entered Email address is invalid!", "Email Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please Choose a picture Type: Google StreetView or Google Maps", "Please Select a Picture Type", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_BtnCreateActionPerformed
 
     private void BtnStvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStvActionPerformed
@@ -336,6 +315,12 @@ public class NewEvent extends javax.swing.JFrame {
         setPic(1, TxtLoc.getText());
     }//GEN-LAST:event_BtnMapActionPerformed
 
+    /**
+     * Generate a Google API URL to get a location picture
+     *
+     * @param imgType (INT)1: Static Map | 2:StreetView
+     * @param postcode (String) Postcode to look for
+     */
     private void setPic(int imgType, String postcode) {
         URL picURL = null;
         try {
@@ -355,9 +340,9 @@ public class NewEvent extends javax.swing.JFrame {
 
             LblImg.setIcon(new ImageIcon(ImageIO.read(picURL)));
         } catch (MalformedURLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CalendarForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CalendarForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -391,7 +376,7 @@ public class NewEvent extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewEvent().setVisible(true);
+                new NewEvent("Test@Test.com").setVisible(true);
             }
         });
     }
@@ -403,11 +388,9 @@ public class NewEvent extends javax.swing.JFrame {
     private javax.swing.JLabel LblImg;
     private javax.swing.JTextField TxtDate;
     private javax.swing.JTextField TxtDesc;
-    private javax.swing.JTextField TxtEmail;
     private javax.swing.JTextField TxtEnd;
     private javax.swing.JTextField TxtLoc;
     private javax.swing.JTextField TxtStart;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
