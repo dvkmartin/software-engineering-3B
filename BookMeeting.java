@@ -5,6 +5,14 @@
  */
 package inse_app;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+
 /**
  * @author UP735175
  * @author UP762633
@@ -16,13 +24,18 @@ public class BookMeeting extends javax.swing.JFrame {
 
     Mysql mysql = new Mysql("213.131.183.194", "insedb", "INSE", "INSE3B");
     String UserEmail = "";
+    String Person = "";
 
     /**
-     * Creates new form BookMeeting
+     * BookMeeting constructor
+     *
+     * @param email (String) logged in user email
+     * @param person (String) user to book meeting with
      */
-    public BookMeeting(String email) {
+    public BookMeeting(String email, String person) {
         initComponents();
         UserEmail = email;
+        Person = person;
     }
 
     /**
@@ -34,11 +47,9 @@ public class BookMeeting extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         TxtEnd = new javax.swing.JTextField();
         TxtStart = new javax.swing.JTextField();
         TxtDate = new javax.swing.JTextField();
-        TxtEmail = new javax.swing.JTextField();
         TxtDesc = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -47,10 +58,9 @@ public class BookMeeting extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        BtnCreate = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Email:");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         TxtEnd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -67,12 +77,6 @@ public class BookMeeting extends javax.swing.JFrame {
         TxtDate.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TxtDateKeyTyped(evt);
-            }
-        });
-
-        TxtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TxtEmailKeyTyped(evt);
             }
         });
 
@@ -96,24 +100,35 @@ public class BookMeeting extends javax.swing.JFrame {
 
         jLabel2.setText("Event Date:");
 
+        BtnCreate.setText("Create New Event");
+        BtnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCreateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 597, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(BtnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(5, 5, 5)
+                            .addGap(1, 1, 1)
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(TxtDesc)
+                            .addGap(143, 143, 143))
+                        .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(25, 25, 25)
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(5, 5, 5)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel3)
                                         .addComponent(jLabel4))
@@ -124,31 +139,24 @@ public class BookMeeting extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel7)
-                                        .addComponent(jLabel8)))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(1, 1, 1)
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(TxtDesc)
-                            .addGap(143, 143, 143))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(TxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel9)))
-                    .addContainerGap()))
+                                        .addComponent(jLabel8)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(TxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel9)))
+                            .addContainerGap()))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(268, Short.MAX_VALUE)
+                .addComponent(BtnCreate)
+                .addGap(80, 80, 80))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(67, 67, 67)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
+                    .addGap(102, 102, 102)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(TxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,7 +175,7 @@ public class BookMeeting extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(TxtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5))
-                    .addContainerGap(67, Short.MAX_VALUE)))
+                    .addContainerGap(141, Short.MAX_VALUE)))
         );
 
         pack();
@@ -191,17 +199,42 @@ public class BookMeeting extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TxtDateKeyTyped
 
-    private void TxtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtEmailKeyTyped
-        if (TxtEmail.getText().length() >= 100) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_TxtEmailKeyTyped
-
     private void TxtDescKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtDescKeyTyped
         if (TxtDesc.getText().length() >= 500) {
             evt.consume();
         }
     }//GEN-LAST:event_TxtDescKeyTyped
+
+    private void BtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCreateActionPerformed
+        Pattern TimeVal = Pattern.compile("^(([0-9])|([0-1][0-9])|([2][0-3])):(([0-9])|([0-5][0-9]))$");
+        String startTime = "";
+        String endTime = "";
+        for (String digits : TxtStart.getText().split(":")) {
+            startTime += digits;
+        }
+        for (String digits : TxtEnd.getText().split(":")) {
+            endTime += digits;
+        }
+
+        if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
+            if (Integer.parseInt(startTime) < Integer.parseInt(endTime)) {
+
+                if (checkTime(TxtStart.getText(), TxtEnd.getText()) == true) {
+                    ResultSet eventUpdate = mysql.insert(Person, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), "", "", BookingForm.searchDate);
+                    ResultSet eventUpdate2 = mysql.insert(UserEmail, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), "", "", BookingForm.searchDate);
+                    BookingForm.FillTable(eventUpdate);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "These times would clash with an existing appointment", "Meeting collision Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "The end time must be greater than the start time", "Time Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_BtnCreateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,18 +266,43 @@ public class BookMeeting extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookMeeting("Test@Test.com").setVisible(true);
+                new BookMeeting("Test@Test.com", "Test2@test.com").setVisible(true);
             }
         });
     }
 
+    private boolean checkTime(String start, String end) {
+        boolean viable = true;
+        String newstart = start.substring(0, 2) + start.substring(3);
+        newstart = newstart.substring(0, 4);
+        String newend = start.substring(0, 2) + start.substring(3);
+        newend = newend.substring(0, 4);
+        for (int i = 0; i < BookingForm.startTime.size(); i++) {
+            if (Integer.parseInt(newstart) >= Integer.parseInt(BookingForm.startTime.get(i)) && Integer.parseInt(newstart) <= Integer.parseInt(BookingForm.endTime.get(i))) {
+                viable = false;
+            } else {
+                viable = true;
+            }
+            if (Integer.parseInt(newend) >= Integer.parseInt(BookingForm.startTime.get(i)) && Integer.parseInt(newend) <= Integer.parseInt(BookingForm.endTime.get(i))) {
+                viable = false;
+            } else {
+                viable = true;
+            }
+            if (Integer.parseInt(newstart) <= Integer.parseInt(BookingForm.startTime.get(i)) && Integer.parseInt(newend) >= Integer.parseInt(BookingForm.endTime.get(i))) {
+                viable = false;
+            } else {
+                viable = true;
+            }
+        }
+        return viable;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCreate;
     private javax.swing.JTextField TxtDate;
     private javax.swing.JTextField TxtDesc;
-    private javax.swing.JTextField TxtEmail;
     private javax.swing.JTextField TxtEnd;
     private javax.swing.JTextField TxtStart;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

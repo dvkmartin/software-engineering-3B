@@ -71,6 +71,12 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        TxtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtPassKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,6 +154,23 @@ public class LoginForm extends javax.swing.JFrame {
         new ForgotPassForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnForgotActionPerformed
+
+    private void TxtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtPassKeyPressed
+         // System.out.println(evt.getKeyCode());
+        if(evt.getKeyCode()==10){
+             boolean result;
+        result = mysql.login(TxtUser.getText(), TxtPass.getText());
+        if (result == true) {
+            JOptionPane.showMessageDialog(null, "Login Successful");
+            getEmail();
+            new HomeForm(UserEmail).setVisible(true);
+            this.dispose();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Login unsuccessful");
+        }
+        }
+    }//GEN-LAST:event_TxtPassKeyPressed
 
     /**
      * @param args the command line arguments

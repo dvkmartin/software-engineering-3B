@@ -24,10 +24,13 @@ import javax.swing.event.ListSelectionListener;
 public class BookingForm extends javax.swing.JFrame implements ListSelectionListener {
 
     Mysql mysql = new Mysql("213.131.183.194", "insedb", "INSE", "INSE3B");
-    String searchDate = "20170101";
+    static String searchDate = "20170101";
     String UserEmail = "";
     ArrayList<String> users = new ArrayList<>();
     ArrayList<String> emails = new ArrayList<>();
+    static ArrayList<String> startTime = new ArrayList<>();
+    static ArrayList<String> endTime = new ArrayList<>();
+    String Person ="";
 
     /**
      * Creates new form Booking
@@ -65,6 +68,13 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         CmbPerson = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jLabel1.setText("Date:");
 
@@ -204,18 +214,13 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         searchDB();
     }//GEN-LAST:event_CmbDayPopupMenuWillBecomeInvisible
 
-    private void CmbMnthPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_CmbMnthPopupMenuWillBecomeInvisible
-        getSearchYr();
-        searchDB();
-    }//GEN-LAST:event_CmbMnthPopupMenuWillBecomeInvisible
-
     private void CmbYrPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_CmbYrPopupMenuWillBecomeInvisible
         getSearchYr();
         searchDB();
     }//GEN-LAST:event_CmbYrPopupMenuWillBecomeInvisible
 
     private void BtnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookActionPerformed
-        new BookMeeting(UserEmail).setVisible(true);
+        new BookMeeting(UserEmail, Person).setVisible(true);
     }//GEN-LAST:event_BtnBookActionPerformed
 
     private void BtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSearchActionPerformed
@@ -226,6 +231,16 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         getSearchYr();
         searchDB();
     }//GEN-LAST:event_CmbPersonPopupMenuWillBecomeInvisible
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        getSearchYr();
+        searchDB();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void CmbMnthPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_CmbMnthPopupMenuWillBecomeInvisible
+        getSearchYr();
+        searchDB();
+    }//GEN-LAST:event_CmbMnthPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -263,14 +278,21 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         });
     }
 
+    /**
+     * Table listener
+     *
+     * @param le event
+     */
     public void valueChanged(ListSelectionEvent le) {
         if (le.getValueIsAdjusting() == false) {
-            Object res = TableData.getModel().getValueAt(TableData.getSelectedRow(), 0);
-            System.out.println("Cell info :" + res);
+            //Do Stuff Here
 
         }
     }
 
+    /**
+     * Retrieve all users And the associated email
+     */
     public void fetchUsers() {
         try {
             ResultSet rs = mysql.getUsers();
@@ -283,18 +305,32 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         }
     }
 
+    /**
+     * Search the DB for all events by a person on a day
+     */
     public void searchDB() {
         String email = getEmail();
-        ResultSet results = mysql.searchByEmailDate(email,searchDate);
+        Person = email;
+        ResultSet results = mysql.searchByEmailDate(email, searchDate);
         FillTable(results);
     }
 
+    /**
+     * Return the email based on who the user selected
+     *
+     * @return
+     */
     public String getEmail() {
         int user = CmbPerson.getSelectedIndex();
         String email = emails.get(user);
         return email;
     }
 
+    /**
+     * Make a suitable MySQL date format
+     *
+     * @return a date E.G 20171225
+     */
     public String getSearchYr() {
         searchDate = "";
         searchDate += CmbYr.getSelectedItem();
@@ -372,6 +408,9 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         return searchDate;
     }
 
+    /**
+     * Populate the Year comboBox
+     */
     private void FillYear() {
         Calendar today = Calendar.getInstance();
         for (int i = today.get(Calendar.YEAR) + 3; i > today.get(Calendar.YEAR) - 97; i--) {
@@ -383,12 +422,20 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         getSearchYr();
     }
 
+    /**
+     * Populate the Persons comboBox
+     */
     private void FillPersons() {
         for (String usr : users) {
             CmbPerson.addItem(usr);
         }
     }
 
+    /**
+     * Populate the Table with a ResultSet
+     *
+     * @param rs the ResultSet to fill the table with
+     */
     public static void FillTable(ResultSet rs) {
 
         DefaultTableModel model;
@@ -401,8 +448,13 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
                 String start = rs.getString(4);
                 String end = rs.getString(5);
                 String desc = rs.getString(6);
-
-                Object[] content = {date,start, end, desc};
+                String newstart = start.substring(0,2)+start.substring(3);
+                newstart = newstart.substring(0, 4);
+                String newend = end.substring(0,2)+end.substring(3);
+                newend = newend.substring(0, 4);
+                startTime.add(newstart);
+                endTime.add(newend);
+                Object[] content = {date, start, end, desc};
 
                 model.addRow(content);
             }
