@@ -202,7 +202,7 @@ public class CalendarForm extends javax.swing.JFrame implements ListSelectionLis
     }//GEN-LAST:event_CmbYrPopupMenuWillBecomeInvisible
 
     private void BtnNewEvntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNewEvntActionPerformed
-        new NewEvent().setVisible(true);
+        new NewEvent(UserEmail).setVisible(true);
     }//GEN-LAST:event_BtnNewEvntActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
