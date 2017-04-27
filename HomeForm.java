@@ -37,6 +37,7 @@ public class HomeForm extends javax.swing.JFrame {
         BtnBooking = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Home");
 
         BtnLogout.setText("Log out");
         BtnLogout.addActionListener(new java.awt.event.ActionListener() {

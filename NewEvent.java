@@ -289,20 +289,27 @@ public class NewEvent extends javax.swing.JFrame {
             endTime += digits;
         }
 
-        if (pictureRef != null) {
-            if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
-                if (Integer.parseInt(startTime) < Integer.parseInt(endTime)) {
-                    ResultSet eventUpdate = mysql.insert(UserEmail, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(), pictureRef, CalendarForm.searchDate);
-                    CalendarForm.FillTable(eventUpdate);
-                    this.dispose();
+        if (Integer.parseInt(TxtDate.getText()) < Integer.parseInt(CalendarForm.today)) {
+            int reply = JOptionPane.showConfirmDialog(this, "The date is set in the past are you sure you want to proceed?", "Date Warning", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                if (pictureRef != null) {
+                    if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
+                        if (Integer.parseInt(startTime) < Integer.parseInt(endTime)) {
+                            ResultSet eventUpdate = mysql.insert(UserEmail, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(), pictureRef, CalendarForm.searchDate);
+                            CalendarForm.FillTable(eventUpdate);
+                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "The end time must be greater than the start time", "Time Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, "The end time must be greater than the start time", "Time Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Please Choose a picture Type: Google StreetView or Google Maps", "Please Select a Picture Type", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
+                //Do Nothing
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please Choose a picture Type: Google StreetView or Google Maps", "Please Select a Picture Type", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_BtnCreateActionPerformed

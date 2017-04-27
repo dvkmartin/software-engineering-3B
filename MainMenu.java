@@ -35,6 +35,7 @@ public class MainMenu extends javax.swing.JFrame {
         BtnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Main Menu");
 
         BtnNewAcc.setText("Create Account");
         BtnNewAcc.addActionListener(new java.awt.event.ActionListener() {

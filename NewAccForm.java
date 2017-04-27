@@ -59,6 +59,7 @@ public class NewAccForm extends javax.swing.JFrame {
         TxtConfPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Register");
 
         fNameLabel.setText("First Name:");
 

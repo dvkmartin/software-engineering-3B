@@ -31,6 +31,7 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
     static ArrayList<String> startTime = new ArrayList<>();
     static ArrayList<String> endTime = new ArrayList<>();
     String Person = "";
+    static String today = "";
 
     /**
      * Creates new form Booking
@@ -45,6 +46,7 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         fetchUsers();
         FillPersons();
         searchDB();
+        today = getSearchYr();
     }
 
     /**
@@ -68,6 +70,7 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         CmbPerson = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Meetings");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);

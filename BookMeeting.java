@@ -61,6 +61,7 @@ public class BookMeeting extends javax.swing.JFrame {
         BtnCreate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Book A Meeting");
 
         TxtEnd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -216,22 +217,29 @@ public class BookMeeting extends javax.swing.JFrame {
             endTime += digits;
         }
 
-        if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
-            if (Integer.parseInt(startTime) < Integer.parseInt(endTime)) {
+        if (Integer.parseInt(TxtDate.getText()) < Integer.parseInt(BookingForm.today)) {
+            int reply = JOptionPane.showConfirmDialog(this, "The date is set in the past are you sure you want to proceed?", "Date Warning", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
+                    if (Integer.parseInt(startTime) < Integer.parseInt(endTime)) {
 
-                if (checkTime(TxtStart.getText(), TxtEnd.getText()) == true) {
-                    ResultSet eventUpdate = mysql.insert(Person, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), "", "", BookingForm.searchDate);
-                    ResultSet eventUpdate2 = mysql.insert(UserEmail, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), "", "", BookingForm.searchDate);
-                    BookingForm.FillTable(eventUpdate);
-                    this.dispose();
+                        if (checkTime(TxtStart.getText(), TxtEnd.getText()) == true) {
+                            ResultSet eventUpdate = mysql.insert(Person, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), "", "", BookingForm.searchDate);
+                            ResultSet eventUpdate2 = mysql.insert(UserEmail, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), "", "", BookingForm.searchDate);
+                            BookingForm.FillTable(eventUpdate);
+                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "These times would clash with an existing appointment", "Meeting collision Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "The end time must be greater than the start time", "Time Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, "These times would clash with an existing appointment", "Meeting collision Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "The end time must be greater than the start time", "Time Error", JOptionPane.ERROR_MESSAGE);
+                //Do Nothing
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_BtnCreateActionPerformed

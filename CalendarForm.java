@@ -23,6 +23,7 @@ public class CalendarForm extends javax.swing.JFrame implements ListSelectionLis
     static String searchDate = "20170101";
     String testing = "";
     String UserEmail = "";
+    static String today ="";
 
     /**
      * Creates new form CalendarForm
@@ -32,6 +33,7 @@ public class CalendarForm extends javax.swing.JFrame implements ListSelectionLis
         initComponents();
         TableData.getSelectionModel().addListSelectionListener(this);
         FillYear();
+        today = getSearchYr();
 
     }
 
@@ -54,6 +56,7 @@ public class CalendarForm extends javax.swing.JFrame implements ListSelectionLis
         TableData = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calendar");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);

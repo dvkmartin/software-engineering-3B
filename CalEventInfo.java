@@ -77,6 +77,7 @@ public class CalEventInfo extends javax.swing.JFrame {
         BtnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calendar Info");
 
         LblPic.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 

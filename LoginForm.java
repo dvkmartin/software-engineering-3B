@@ -45,6 +45,7 @@ public class LoginForm extends javax.swing.JFrame {
         TxtPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
 
         loginUserLabel.setText("Username:");
 

@@ -78,7 +78,8 @@ public class Mysql {
                     + loc + "','"
                     + pic
                     + "')");
-            mySs = myStmt.executeQuery("SELECT * FROM Calendar WHERE EventDate =" + searchDate + ";");
+            mySs = myStmt.executeQuery("SELECT * FROM Calendar WHERE Email ='" + email + "'AND EventDate ='" + searchDate + "';");
+            
         } catch (Exception exc) {
             exc.printStackTrace();
         }

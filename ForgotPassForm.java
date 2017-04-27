@@ -43,6 +43,7 @@ public class ForgotPassForm extends javax.swing.JFrame {
         requestPassBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Password Reset");
 
         description2Label.setText("*Your password will be sent to the email you registered with.");
 
