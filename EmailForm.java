@@ -19,6 +19,7 @@ public class EmailForm extends javax.swing.JFrame {
     String UserEmail = "";
     /**
      * Creates new form EmailForm
+     * @param email (String)The Email Address of the user
      */
     public EmailForm(String email) {
         UserEmail = email;

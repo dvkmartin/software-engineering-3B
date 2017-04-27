@@ -31,6 +31,7 @@ public class NewEvent extends javax.swing.JFrame {
 
     /**
      * Creates new form NewEvent
+     * @param email (String)The Email Address of the user
      */
     public NewEvent(String email) {
         initComponents();

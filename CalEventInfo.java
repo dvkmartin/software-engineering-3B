@@ -25,7 +25,7 @@ public class CalEventInfo extends javax.swing.JFrame {
     /**
      * Creates new form CalEventInfo
      *
-     * @param id
+     * @param id The ID of event
      */
     public CalEventInfo(String id) {
         initComponents();

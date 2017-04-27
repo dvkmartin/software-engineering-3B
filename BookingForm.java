@@ -331,7 +331,7 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
     /**
      * Return the email based on who the user selected
      *
-     * @return
+     * @return (String) Email of user
      */
     public String getEmail() {
         int user = CmbPerson.getSelectedIndex();

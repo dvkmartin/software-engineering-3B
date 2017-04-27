@@ -16,6 +16,7 @@ public class HomeForm extends javax.swing.JFrame {
     String UserEmail = "";
     /**
      * Creates new form HomeForm
+     * @param email (String)The Email Address of the user
      */
     public HomeForm(String email) {
         UserEmail = email;

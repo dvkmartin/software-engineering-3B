@@ -26,7 +26,8 @@ public class CalendarForm extends javax.swing.JFrame implements ListSelectionLis
     static String today ="";
 
     /**
-     * Creates new form CalendarForm
+     * Creates new calendar form
+     * @param email (String) Email address of user
      */
     public CalendarForm(String email) {
         UserEmail =email;
