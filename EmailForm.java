@@ -43,7 +43,12 @@ public class EmailForm extends javax.swing.JFrame {
         TxtSendTo = new javax.swing.JTextField();
         TxtSub = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel2.setText("Recipient email:");
 
@@ -120,6 +125,11 @@ public class EmailForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "One or more of the entered email addresses are not valid", "Email error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnSendActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        new HomeForm(UserEmail).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

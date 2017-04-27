@@ -30,7 +30,7 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
     ArrayList<String> emails = new ArrayList<>();
     static ArrayList<String> startTime = new ArrayList<>();
     static ArrayList<String> endTime = new ArrayList<>();
-    String Person ="";
+    String Person = "";
 
     /**
      * Creates new form Booking
@@ -67,12 +67,17 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         jLabel2 = new javax.swing.JLabel();
         CmbPerson = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
@@ -241,6 +246,11 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
         getSearchYr();
         searchDB();
     }//GEN-LAST:event_CmbMnthPopupMenuWillBecomeInvisible
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        new HomeForm(UserEmail).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -448,9 +458,9 @@ public class BookingForm extends javax.swing.JFrame implements ListSelectionList
                 String start = rs.getString(4);
                 String end = rs.getString(5);
                 String desc = rs.getString(6);
-                String newstart = start.substring(0,2)+start.substring(3);
+                String newstart = start.substring(0, 2) + start.substring(3);
                 newstart = newstart.substring(0, 4);
-                String newend = end.substring(0,2)+end.substring(3);
+                String newend = end.substring(0, 2) + end.substring(3);
                 newend = newend.substring(0, 4);
                 startTime.add(newstart);
                 endTime.add(newend);

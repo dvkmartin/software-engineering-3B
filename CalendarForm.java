@@ -270,7 +270,7 @@ public class CalendarForm extends javax.swing.JFrame implements ListSelectionLis
      */
     public void searchDB() {
         String date = getSearchYr();
-        ResultSet results = mysql.search(date);
+        ResultSet results = mysql.searchByEmailDate(UserEmail,date);
         FillTable(results);
     }
 
