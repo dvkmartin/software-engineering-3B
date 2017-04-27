@@ -31,6 +31,7 @@ public class NewEvent extends javax.swing.JFrame {
 
     /**
      * Creates new form NewEvent
+     *
      * @param email (String)The Email Address of the user
      */
     public NewEvent(String email) {
@@ -280,6 +281,7 @@ public class NewEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtDateKeyTyped
 
     private void BtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCreateActionPerformed
+        boolean proceed = true;
         Pattern TimeVal = Pattern.compile("^(([0-9])|([0-1][0-9])|([2][0-3])):(([0-9])|([0-5][0-9]))$");
         String startTime = "";
         String endTime = "";
@@ -293,23 +295,26 @@ public class NewEvent extends javax.swing.JFrame {
         if (Integer.parseInt(TxtDate.getText()) < Integer.parseInt(CalendarForm.today)) {
             int reply = JOptionPane.showConfirmDialog(this, "The date is set in the past are you sure you want to proceed?", "Date Warning", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
-                if (pictureRef != null) {
-                    if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
-                        if (Integer.parseInt(startTime) < Integer.parseInt(endTime)) {
-                            ResultSet eventUpdate = mysql.insert(UserEmail, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(), pictureRef, CalendarForm.searchDate);
-                            CalendarForm.FillTable(eventUpdate);
-                            this.dispose();
-                        } else {
-                            JOptionPane.showMessageDialog(this, "The end time must be greater than the start time", "Time Error", JOptionPane.ERROR_MESSAGE);
-                        }
+                proceed = true;
+            } else {
+                proceed = false;
+            }
+        }
+        if (proceed == true) {
+            if (pictureRef != null) {
+                if (TimeVal.matcher(TxtStart.getText()).matches() == true && TimeVal.matcher(TxtEnd.getText()).matches() == true) {
+                    if (Integer.parseInt(startTime) < Integer.parseInt(endTime)) {
+                        ResultSet eventUpdate = mysql.insert(UserEmail, TxtDate.getText(), TxtStart.getText(), TxtEnd.getText(), TxtDesc.getText(), TxtLoc.getText(), pictureRef, CalendarForm.searchDate);
+                        CalendarForm.FillTable(eventUpdate);
+                        this.dispose();
                     } else {
-                        JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "The end time must be greater than the start time", "Time Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Please Choose a picture Type: Google StreetView or Google Maps", "Please Select a Picture Type", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Please enter a valid time", "Time Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                //Do Nothing
+                JOptionPane.showMessageDialog(this, "Please Choose a picture Type: Google StreetView or Google Maps", "Please Select a Picture Type", JOptionPane.ERROR_MESSAGE);
             }
         }
 
