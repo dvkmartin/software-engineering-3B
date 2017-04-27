@@ -214,6 +214,8 @@ public class NewAccForm extends javax.swing.JFrame {
         if (EmailVal.matcher(TxtEmail.getText()).matches() == true) {
             if (Fname == true && Lname == true && Uname == true && EmailMatch == true && PassMatch == true) {
                 mysql.signup(TxtFName.getText(), TxtLName.getText(), TxtUName.getText(), TxtEmail.getText(), TxtPass.getText());
+                new LoginForm().setVisible(true);
+                this.dispose();
             }
         } else {
             JOptionPane.showMessageDialog(this, "The entered Email Address is not valid", "Email Error", JOptionPane.ERROR_MESSAGE);
@@ -221,7 +223,7 @@ public class NewAccForm extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnSubmitActionPerformed
 
     private void TxtFNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtFNameKeyReleased
-      if (!TxtFName.getText().isEmpty() ) {
+        if (!TxtFName.getText().isEmpty()) {
             Fname = true;
             TxtFName.setBackground(Color.green);
         } else {
@@ -231,7 +233,7 @@ public class NewAccForm extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtFNameKeyReleased
 
     private void TxtLNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtLNameKeyReleased
-         if (!TxtLName.getText().isEmpty() ) {
+        if (!TxtLName.getText().isEmpty()) {
             Lname = true;
             TxtLName.setBackground(Color.green);
         } else {
@@ -241,7 +243,7 @@ public class NewAccForm extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtLNameKeyReleased
 
     private void TxtUNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtUNameKeyReleased
-         if (!TxtUName.getText().isEmpty() ) {
+        if (!TxtUName.getText().isEmpty()) {
             Uname = true;
             TxtUName.setBackground(Color.green);
         } else {
@@ -251,13 +253,13 @@ public class NewAccForm extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtUNameKeyReleased
 
     private void TxtConfPassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtConfPassKeyReleased
-       if (TxtConfPass.getText().equals(TxtPass.getText())) {
+        if (TxtConfPass.getText().equals(TxtPass.getText())) {
             TxtConfPass.setBackground(Color.green);
-            EmailMatch = true;
+            PassMatch = true;
         } else {
-            EmailMatch = false;
+            PassMatch = false;
             TxtConfPass.setBackground(Color.red);
-       }
+        }
     }//GEN-LAST:event_TxtConfPassKeyReleased
 
     /**
