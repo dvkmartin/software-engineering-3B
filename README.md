@@ -2,9 +2,9 @@
 
 This Application was developed by Team 3B as part of a coursework submission<br/>
 It has three functions:<br/>
-  A Calendar<br/>
-  A Meeting Booking System<br/>
-  An Email System<br/>
+ &emsp; A Calendar<br/>
+ &emsp; A Meeting Booking System<br/>
+  &emsp;An Email System<br/>
 
 <h1>Getting Started</h1>
 In order to use this software all you have to do is download the .jar file and the lib file<br/>
