@@ -11,11 +11,11 @@ In order to use this software all you have to do is download the .jar file and t
 and then run the jar from the folder containg the lib folder<br/>
 E.G<br/>
 Team3B  -Top folder<br/>
-  The Digital Assistant - Team 3B.jar - RUN THIS FILE<br/>
-  Libs<br/>
-    activation.jar<br/>
-    mail.jar<br/>
-    Mysql-connector.jar<br/>
+  &emsp;The Digital Assistant - Team 3B.jar - RUN THIS FILE<br/>
+ &emsp; Libs<br/>
+    &emsp;&emsp;activation.jar<br/>
+    &emsp;&emsp;mail.jar<br/>
+    &emsp;&emsp;Mysql-connector.jar<br/>
 
 <h1>Authors</h1>
 UP735175<br/>
