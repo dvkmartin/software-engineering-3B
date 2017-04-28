@@ -18,9 +18,9 @@ Team3B  -Top folder
     Mysql-connector.jar
 
 <h1>Authors</h1>
-UP735175
-UP762633
-UP775061
-UP759167
-UP784356
+UP735175<br/>
+UP762633<br/>
+UP775061<br/>
+UP759167<br/>
+UP784356<br/>
 
